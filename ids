@@ -1,0 +1,83 @@
+Pool Id: eu-central-1_eKuD5SMCh
+
+Pool ARN: arn:aws:cognito-idp:eu-central-1:875494075548:userpool/eu-central-1_eKuD5SMCh
+
+app client id: 36sqddag0hpts9ekf54f5qnutq
+
+domain: notes-app-enit
+
+userid
+053d0ea3-dab5-4357-8af0-c6ba2cd723e
+
+note-id
+d0694130-78a4-11ea-bc75-f1df998aef08
+
+
+stripe public
+pk_test_odgJNCEJbqQIMwJL4ikWFNSz00o4Jy2CeN
+
+stripe private
+sk_test_rC0jCTKoJr7IKx4WQRMaW9o400S04RAWkP
+
+s3
+notes-app-uploads-enit
+
+identity Pool
+eu-central-1:de72fcc9-8f7a-47af-9c63-6afd4be54c76
+
+region
+eu-central-1
+
+Service Information
+service: notes-app-api
+stage: prod
+region: eu-central-1
+stack: notes-app-api-prod
+resources: 43
+api keys:
+  None
+endpoints:
+  POST - https://qws9n3n4jb.execute-api.eu-central-1.amazonaws.com/prod/notes
+  GET - https://qws9n3n4jb.execute-api.eu-central-1.amazonaws.com/prod/notes/{id}
+  GET - https://qws9n3n4jb.execute-api.eu-central-1.amazonaws.com/prod/notes
+  PUT - https://qws9n3n4jb.execute-api.eu-central-1.amazonaws.com/prod/notes/{id}
+  DELETE - https://qws9n3n4jb.execute-api.eu-central-1.amazonaws.com/prod/notes/{id}
+  POST - https://qws9n3n4jb.execute-api.eu-central-1.amazonaws.com/prod/billing
+functions:
+  create: notes-app-api-prod-create
+  get: notes-app-api-prod-get
+  list: notes-app-api-prod-list
+  update: notes-app-api-prod-update
+  delete: notes-app-api-prod-delete
+  billing: notes-app-api-prod-billing
+layers:
+  None
+
+
+$ npx aws-api-gateway-cli-test \
+--username='admin2@example.com' \
+--password='Passw0rd!' \
+--user-pool-id='eu-central-1_eKuD5SMCh' \
+--app-client-id='36sqddag0hpts9ekf54f5qnutq' \
+--cognito-region='eu-central-1' \
+--identity-pool-id='eu-central-1:de72fcc9-8f7a-47af-9c63-6afd4be54c76' \
+--invoke-url='https://qws9n3n4jb.execute-api.eu-central-1.amazonaws.com/prod' \
+--api-gateway-region='eu-central-1' \
+--path-template='/notes' \
+--method='POST' \
+--body='{"content":"hello world","attachment":"hello.jpg"}'
+
+
+aws cognito-idp sign-up \
+  --region eu-central-1 \
+  --client-id 36sqddag0hpts9ekf54f5qnutq \
+  --username admin2@example.com \
+  --password Passw0rd!
+  --profile sudo
+
+
+aws cognito-idp admin-confirm-sign-up \
+  --region eu-central-1 \
+  --user-pool-id 36sqddag0hpts9ekf54f5qnutq \
+  --username admin2@example.com
+  --profile sudo
